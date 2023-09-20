@@ -31,7 +31,7 @@ enum PlayStates
 {
 	STATE_WELCOME = 0,
 	STATE_PLAY,
-	STATE_PAUSE,
+	STATE_PAUSED,
 	STATE_GAMEOVER,
 };
 
@@ -45,7 +45,7 @@ struct Agent8
 	int WrapOnce{ 0 };
 };
 
-struct Meteors
+struct Meteor_info
 {
 	const int MAX_METEORS = 1;
 	float METEOR_SPEED{ 5.0f };
@@ -53,7 +53,7 @@ struct Meteors
 	int Offsety = -55;
 };
 
-struct Asteroids
+struct Asteroid_info
 {
 	float ASTEROID_SPEED{ 5.0f };
 
@@ -64,22 +64,20 @@ struct Asteroids
 	int Offsety = -15;
 };
 
-struct Gems
+struct Gem_info
 {
 	const int GEM_SCORE{ 500 };
 	const int GEM_RADIUS{ 5 };
 	int COLLECTED_GEM{ 0 };
 };
 
-struct Rings
+struct Ring_info
 {
 	const int MAX_RINGS = 3;
 };
 
-struct AsteroidPieces
+struct AsteroidPieces_info
 {
-	float angle;
-	float speed;
 	const int MAX_ASTEROID_PIECES = 3;
 	int ASTEROID_PIECE{ 0 };
 	float ASTEROID_PIECE_SPEED{ 10.0f };
@@ -88,14 +86,14 @@ struct AsteroidPieces
 struct GameState
 {
 	int score{ 0 };
-	AsteroidPieces piece;
+	AsteroidPieces_info piece;
 	AgentStates agentState = STATE_FLYING;
 	Agent8 agent8;
-	Meteors meteor;
-	Asteroids asteroid;
-	Gems gem;
-	Rings ring;
-	PlayStates pState;
+	Meteor_info meteor;
+	Asteroid_info asteroid;
+	Gem_info gem;
+	Ring_info ring;
+	PlayStates pState{ STATE_PLAY };
 };
 
 extern GameState gState;

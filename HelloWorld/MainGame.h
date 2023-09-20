@@ -15,6 +15,8 @@ enum GameObjectTypes
 	TYPE_GEM,
 	TYPE_RING,
 	TYPE_LANDED_ON,
+	TYPE_CLOUD,
+	TYPE_LASER,
 };
 
 enum AgentStates
@@ -26,9 +28,9 @@ enum AgentStates
 
 enum PlayStates
 {
-	STATE_WELCOME = 0,
+	STATE_RESET = 0,
 	STATE_PLAY,
-	STATE_PAUSE,
+	STATE_PAUSED,
 	STATE_GAMEOVER,
 };
 
@@ -38,10 +40,12 @@ struct Agent8
 	float AGENT8_SPEED{ 9.0f };
 	int Dead_Offsety{ -45 };
 	int Walk_Offsety{ 60 };
-	int WrapOnce{ 0 };
+	float Flying_rotation{ 0.05f };
+	float Walking_rotation{ 0.05f };
+	float Walking_speed{ 0.2f };
 };
 
-struct Meteors
+struct Meteor_info
 {
 	const int MAX_METEORS = 1;
 	float METEOR_SPEED{ 5.0f };
@@ -49,46 +53,75 @@ struct Meteors
 	int Offsety = -55;
 };
 
-struct Asteroids
+struct Asteroid_info
 {
-	float ASTEROID_SPEED{ 5.0f };
-
+	float ASTEROID_SPEED{ 3.0f };
 	const int ASTEROID_RADIUS{ 60 };
 	Point2D LANDED_ASTEROID{ 0, 0 };
-	const int MAX_ASTEROIDS = 4; // Consts are things you don't want changed during gameplay
+	const int MAX_ASTEROIDS = 7; // Consts are things you don't want changed during gameplay
 	int Offsety = -15;
 };
 
-struct Gems
+struct Gem_info
 {
 	const int GEM_SCORE{ 500 };
-	const int GEM_RADIUS{ 5 };
+	const int GEM_RADIUS{ 2 };
 	int COLLECTED_GEM{ 0 };
 };
 
-struct Rings
+struct Ring_info
 {
 	const int MAX_RINGS = 3;
 };
 
-struct AsteroidPieces
+struct AsteroidPieces_info
 {
 	const int MAX_ASTEROID_PIECES = 3;
 	int ASTEROID_PIECE{ 0 };
 	const float ASTEROID_PIECE_SPEED{ 10.0f };
 };
 
+struct Cloud_info
+{
+	const int CloudDensity{ 3 };
+	const int DeadCloudDensity{ 4 };
+	const float FadeRate{ 0.04f };
+	const int FlyingSpread{ 10 };
+	const int DeadSpread{ 15 };
+
+};
+
+struct TextPositions
+{
+	Point2f CentrePosition{ DISPLAY_WIDTH / 2, DISPLAY_HEIGHT / 2 };
+	Point2f CentreTop{ DISPLAY_WIDTH / 2, DISPLAY_HEIGHT / 2 };
+	Point2f CentreBottomQuarter{ DISPLAY_WIDTH / 2, DISPLAY_HEIGHT / 4 * 3 };
+
+};
+
+struct LASER
+{
+	Point2f obj_agent8_back = { 0,0 };
+	int LASER_SPEED = 15;
+	Point2f clickPos = { 0,0 };
+	float angle = 0;
+};
+
 struct GameState
 {
 	int score{ 0 };
-	AsteroidPieces piece;
+	bool cheat_1 = false;
+	AsteroidPieces_info piece;
 	AgentStates agentState = STATE_FLYING;
 	Agent8 agent8;
-	Meteors meteor;
-	Asteroids asteroid;
-	Gems gem;
-	Rings ring;
-	PlayStates pState;
+	Meteor_info meteor;
+	Asteroid_info asteroid;
+	Gem_info gem;
+	Ring_info ring;
+	Cloud_info cloud;
+	PlayStates pState{ STATE_RESET };
+	TextPositions position;
+	LASER LASER;
 };
 
 struct GameState gState;
