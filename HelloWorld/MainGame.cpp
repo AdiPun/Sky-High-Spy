@@ -243,26 +243,17 @@ void HandleLandedControls()
 			// move the position of the landed asteroid a little bit
 			// updatelaser();
 			// drawobjectrotated();
-			float agent8x = obj_agent8.pos.x;
-			float agent8y = obj_agent8.pos.y;
-			Play::CreateGameObject(TYPE_LASER, obj_agent8.pos, 2, "laser");
+			
+			int laser_id = Play::CreateGameObject(TYPE_LASER, obj_agent8.pos, 2, "laser");
+			GameObject& laser_obj = Play::GetGameObject(laser_id);
+			
+			Vector2D laserdirection = Play::GetMousePos() - obj_agent8.pos;
 
-			std::vector<int> vLASERS = Play::CollectGameObjectIDsByType(TYPE_LASER);
-			for (int laser_id : vLASERS)
-			{
-				GameObject& LASER_OBJ = Play::GetGameObject(laser_id);
+			laserdirection.Normalize();
 
-				gState.LASER.clickPos = Play::GetMousePos();
+			laser_obj.velocity = laserdirection * gState.LASER.LASER_SPEED;
 
-				float laserx = gState.LASER.clickPos.x;
-				float lasery = gState.LASER.clickPos.y;
-
-				float rangex = laserx - agent8x;
-				float rangey = lasery - agent8y;
-
-				// Calculate angle in radians using atan2
-				LASER_OBJ.rotation = Play::DegToRad(90) + atan2(rangey, rangex);			
-			}
+			laser_obj.rotation = -atan2(laserdirection.x, laserdirection.y);
 		}
 	}
 }
@@ -272,17 +263,14 @@ void UpdateLaser()
 	std::vector<int> vLASERS = Play::CollectGameObjectIDsByType(TYPE_LASER);
 	for (int laser_id : vLASERS)
 	{
-		GameObject& LASER_OBJ = Play::GetGameObject(laser_id);
+		GameObject& laser_obj = Play::GetGameObject(laser_id);
+	
+		Play::UpdateGameObject(laser_obj);
 
-		// Set the velocity of the laser object
-		SetVelocityObject(LASER_OBJ, gState.LASER.LASER_SPEED);
-
-		if (!Play::IsVisible(LASER_OBJ) || LASER_OBJ.opacity <= 0)
+		if (!Play::IsVisible(laser_obj))
 		{
 			Play::DestroyGameObject(laser_id);
 		}
-
-		Play::UpdateGameObject(LASER_OBJ);
 	}
 }
 
@@ -437,11 +425,8 @@ void Pause()
 // Takes a game object and what speed you want and makes it move in the direction it is facing
 void SetVelocityObject(GameObject& obj, float speed)
 {
-	float x = sin(obj.rotation);
-	float y = cos(obj.rotation);
-
-	obj.velocity.x = x * speed;
-	obj.velocity.y = -y * speed;
+	obj.velocity.x = sin(obj.rotation) * speed;
+	obj.velocity.y = -cos(obj.rotation) * speed;
 }
 
 // Takes a game object, width and height and loops the object around the screen
