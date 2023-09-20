@@ -110,7 +110,7 @@ void CreateAsteroidPieces();
 void CreateRings(Point2D pos);
 void UpdateGem();
 void UpdateRing();
-void SetVelocityObject(GameObject& obj, float speed);
+void SetVelocitytoObjectDirection(GameObject& obj, float speed);
 void WrapObject(GameObject& obj, int ObjectWidth, int ObjectHeight);
 void SpawnObject(int type, const char* spriteName, int MAX_OBJECTS, int collisionRadius, Point2f position, float rotation);
 void DrawAllGameObjectsOfType(int type);

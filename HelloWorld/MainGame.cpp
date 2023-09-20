@@ -19,7 +19,7 @@ void UpdateClouds();
 void Pause();
 
 // Functions transferable
-void SetVelocityObject(GameObject& obj, float speed);
+void SetVelocitytoObjectDirection(GameObject& obj, float speed);
 void WrapObject(GameObject& obj, int ObjectWidth, int ObjectHeight);
 void SpawnObject(int type, const char* spriteName, int MAX_OBJECTS, int collisionRadius);
 void Draw();
@@ -127,7 +127,7 @@ void UpdateAgent8Dead()
 	Play::SetSprite(obj_agent8, "agent8_dead", 0);
 	obj_agent8.animSpeed = 0.1f;
 	WrapObject(obj_agent8, 130, 130);
-	SetVelocityObject(obj_agent8, gState.agent8.AGENT8_SPEED);
+	SetVelocitytoObjectDirection(obj_agent8, gState.agent8.AGENT8_SPEED);
 	obj_agent8.acceleration = { 0.05f, 0.05f };
 }
 
@@ -141,7 +141,7 @@ void UpdateAsteroids()
 	{
 		GameObject& obj_asteroid = Play::GetGameObject(asteroid_id);
 		obj_asteroid.animSpeed = 0.1f;
-		SetVelocityObject(obj_asteroid, gState.asteroid.ASTEROID_SPEED);
+		SetVelocitytoObjectDirection(obj_asteroid, gState.asteroid.ASTEROID_SPEED);
 		WrapObject(obj_asteroid, 130, 130);
 
 		if (Play::IsColliding(obj_agent8, obj_asteroid) && gState.agentState == STATE_FLYING)
@@ -160,7 +160,7 @@ void UpdateLandedAsteroid()
 {
 	GameObject& obj_landed = Play::GetGameObjectByType(TYPE_LANDED_ON);
 	obj_landed.animSpeed = 0.1f;
-	SetVelocityObject(obj_landed, gState.asteroid.ASTEROID_SPEED);
+	SetVelocitytoObjectDirection(obj_landed, gState.asteroid.ASTEROID_SPEED);
 	WrapObject(obj_landed, 130, 130);
 	Play::UpdateGameObject(obj_landed);
 }
@@ -170,7 +170,7 @@ void HandleFlyingControls()
 	GameObject& obj_agent8 = Play::GetGameObjectByType(TYPE_AGENT8);
 	Play::SetSprite(obj_agent8, "agent8_fly", 0);
 
-	SetVelocityObject(obj_agent8, gState.agent8.AGENT8_SPEED);
+	SetVelocitytoObjectDirection(obj_agent8, gState.agent8.AGENT8_SPEED);
 
 	if (Play::KeyDown(VK_LEFT))
 	{
@@ -298,7 +298,7 @@ void UpdateMeteors()
 	{
 		GameObject& obj_meteor = Play::GetGameObject(meteor_id);
 		obj_meteor.animSpeed = 0.1f;
-		SetVelocityObject(obj_meteor, gState.meteor.METEOR_SPEED);
+		SetVelocitytoObjectDirection(obj_meteor, gState.meteor.METEOR_SPEED);
 		WrapObject(obj_meteor, 130, 130);
 
 		if (Play::IsColliding(obj_agent8, obj_meteor) && gState.agentState == STATE_FLYING)
@@ -412,11 +412,13 @@ void Pause()
 // Transferable Functions
 
 // Takes a game object and what speed you want and makes it move in the direction it is facing
-void SetVelocityObject(GameObject& obj, float speed)
+void SetVelocitytoObjectDirection(GameObject& obj, float speed)
 {
 	obj.velocity.x = sin(obj.rotation) * speed;
 	obj.velocity.y = -cos(obj.rotation) * speed;
 }
+
+Play::SetGameObjectDirection();
 
 // Takes a game object, width and height and loops the object around the screen
 void WrapObject(GameObject& obj, int ObjectWidth, int ObjectHeight)
