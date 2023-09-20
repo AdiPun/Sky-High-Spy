@@ -232,18 +232,7 @@ void HandleLandedControls()
 	if (gState.cheat_1 == true)
 	{
 		if (Play::KeyDown(VK_LBUTTON))
-		{
-			//create laser from agent8 pos
-			// setdirection pointed at mouse pos
-			// play laser sound
-			// shake the screen
-			// get landed asteroid object 
-			// get the vector of where the mouse is compared to agent8
-			// take 180 deg to radians away from it
-			// move the position of the landed asteroid a little bit
-			// updatelaser();
-			// drawobjectrotated();
-			
+		{	
 			int laser_id = Play::CreateGameObject(TYPE_LASER, obj_agent8.pos, 2, "laser");
 			GameObject& laser_obj = Play::GetGameObject(laser_id);
 			
@@ -456,11 +445,15 @@ void SpawnObject(int type, const char* spriteName, int MAX_OBJECTS, int collisio
 {
 	for (int i = 0; i < MAX_OBJECTS; i++)
 	{
-		int id = Play::CreateGameObject(type, { Play::RandomRollRange(0,DISPLAY_WIDTH), Play::RandomRollRange(0,DISPLAY_HEIGHT) }, collisionRadius, spriteName);
+		int id = Play::CreateGameObject(type, { Play::RandomRollRange(0,DISPLAY_WIDTH),
+			Play::RandomRollRange(0,DISPLAY_HEIGHT) }, collisionRadius, spriteName);
 		GameObject& obj = Play::GetGameObject(id);
 		obj.rotation = Play::RandomRollRange(0, Play::DegToRad(360));
 	}
 }
+
+// collect game objects by type if nothing will return a length of 0 use .size
+// if 0 that means all gems collected
 
 void Draw()
 {

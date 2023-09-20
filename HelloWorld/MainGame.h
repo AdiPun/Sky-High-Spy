@@ -55,7 +55,7 @@ struct Meteor_info
 
 struct Asteroid_info
 {
-	float ASTEROID_SPEED{ 0.0f };
+	float ASTEROID_SPEED{ 5.0f };
 	const int ASTEROID_RADIUS{ 60 };
 	Point2D LANDED_ASTEROID{ 0, 0 };
 	const int MAX_ASTEROIDS = 7; // Consts are things you don't want changed during gameplay
@@ -70,9 +70,12 @@ struct Gem_info
 };
 
 struct Ring_info
+
 {
 	const int MAX_RINGS = 3;
 };
+
+
 
 struct AsteroidPieces_info
 {
@@ -107,7 +110,7 @@ struct LASER
 	float angle = 0;
 };
 
-struct GameState
+struct GameState // Collection of persisting data to avoid global variables
 {
 	int score{ 0 };
 	bool cheat_1 = false;
