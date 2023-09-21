@@ -248,7 +248,10 @@ void HandleLandedControls()
 	{
 		if (Play::KeyDown(VK_LBUTTON))
 		{	
-			int laser_id = Play::CreateGameObject(TYPE_LASER, obj_agent8.pos, 2, "laser");
+			gState.agent8.Agent8LaserPos.x = obj_agent8.pos.x + 10 * gState.agent8.AGENT8_SPEED * sin(obj_agent8.rotation);
+			gState.agent8.Agent8LaserPos.y = obj_agent8.pos.y + 10 * gState.agent8.AGENT8_SPEED * -cos(obj_agent8.rotation);
+
+			int laser_id = Play::CreateGameObject(TYPE_LASER, gState.agent8.Agent8LaserPos, 2, "laser");
 			GameObject& laser_obj = Play::GetGameObject(laser_id);
 			
 			Vector2D laserdirection = Play::GetMousePos() - obj_agent8.pos;

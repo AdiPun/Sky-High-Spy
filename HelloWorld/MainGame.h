@@ -44,6 +44,7 @@ struct Agent8
 	float Flying_rotation{ 0.05f };
 	float Walking_rotation{ 0.05f };
 	float Walking_speed{ 0.2f };
+	Point2D Agent8LaserPos{ 0,0 };
 };
 
 struct Meteor_info
