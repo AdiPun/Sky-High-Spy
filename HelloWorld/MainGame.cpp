@@ -266,8 +266,6 @@ void UpdateLaser()
 	{
 		GameObject& obj_laser = Play::GetGameObject(id_laser);
 		bool hasCollided = false;
-		bool meteorDead = false;
-		bool asteroidDead = false;
 
 		for (int id_asteroid : vAsteroids)
 		{
@@ -275,7 +273,7 @@ void UpdateLaser()
 			if (Play::IsColliding(obj_laser, obj_asteroid) && gState.cheat_1 == true)
 			{
 				hasCollided = true;
-				Play::PlayAudio("explode"); // Create Function what happens when asteroid is destroyed
+				Play::PlayAudio("explode");
 				for (int i = 0; i < gState.piece.MAX_ASTEROID_PIECES; i++)
 				{
 					int piece_id = Play::CreateGameObject(TYPE_PIECES, obj_asteroid.pos, 0, "asteroid_pieces");
@@ -287,13 +285,14 @@ void UpdateLaser()
 				Play::DestroyGameObject(id_asteroid);
 			}
 		}
-		
 		for (int id_meteor : vMeteors)
 		{
 			GameObject& obj_meteor = Play::GetGameObject(id_meteor);
 			if (Play::IsColliding(obj_laser, obj_meteor) && gState.cheat_1 == true)
 			{
 				hasCollided = true;
+				Play::PlayAudio("clang"); 
+				Play::CreateGameObject(TYPE_GEM, obj_meteor.pos, gState.gem.GEM_RADIUS, "gem");
 				Play::DestroyGameObject(id_meteor);
 			}
 		}
