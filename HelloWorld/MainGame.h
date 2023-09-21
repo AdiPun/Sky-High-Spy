@@ -58,7 +58,7 @@ struct Asteroid_info
 	float ASTEROID_SPEED{ 5.0f };
 	const int ASTEROID_RADIUS{ 60 };
 	Point2D LANDED_ASTEROID{ 0, 0 };
-	const int MAX_ASTEROIDS = 7; // Consts are things you don't want changed during gameplay
+	const int MAX_ASTEROIDS = 3; // Consts are things you don't want changed during gameplay
 	int Offsety = -15;
 };
 
@@ -99,6 +99,9 @@ struct TextPositions
 	Point2f CentrePosition{ DISPLAY_WIDTH / 2, DISPLAY_HEIGHT / 2 };
 	Point2f CentreTop{ DISPLAY_WIDTH / 2, DISPLAY_HEIGHT / 2 };
 	Point2f CentreBottomQuarter{ DISPLAY_WIDTH / 2, DISPLAY_HEIGHT / 4 * 3 };
+	Point2f TopRight{ DISPLAY_WIDTH / 10 * 8, DISPLAY_HEIGHT / 10 * 1 };
+	Point2f TopRight2{ DISPLAY_WIDTH / 10 * 8, DISPLAY_HEIGHT / 10 * 2 };
+
 
 };
 
@@ -114,6 +117,7 @@ struct GameState // Collection of persisting data to avoid global variables
 {
 	int score{ 0 };
 	bool cheat_1 = false;
+	bool cheat_2 = false;
 	AsteroidPieces_info piece;
 	AgentStates agentState = STATE_FLYING;
 	Agent8 agent8;

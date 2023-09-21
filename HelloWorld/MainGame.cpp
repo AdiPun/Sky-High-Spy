@@ -50,7 +50,8 @@ bool MainGameUpdate(float elapsedTime)
 	{
 	case STATE_RESET:
 		gState.cheat_1 = true;
-		gState.score = 0;
+		gState.cheat_2 = true;
+		gState.score = 400;
 		Play::DestroyGameObjectsByType(TYPE_METEOR);
 		Play::DestroyGameObjectsByType(TYPE_ASTEROID);
 		Play::DestroyGameObjectsByType(TYPE_GEM);
@@ -211,8 +212,12 @@ void HandleLandedControls()
 
 	if (Play::KeyPressed(VK_SPACE))
 	{
+		gState.agentState = STATE_FLYING;
+		Play::SetSprite(obj_agent8, "agent8_fly", 1.0f);
+		
 		GameObject& obj_landed_asteroid = Play::GetGameObjectByType(TYPE_LANDED_ON);
 		gState.asteroid.LANDED_ASTEROID = obj_landed_asteroid.pos;
+
 
 
 		Play::PlayAudio("explode"); // Create Function what happens when asteroid is destroyed
@@ -223,9 +228,6 @@ void HandleLandedControls()
 
 		CreateAsteroidPieces();
 
-		gState.agentState = STATE_FLYING;
-
-		Play::SetSprite(obj_agent8, "agent8_fly", 1.0f);
 
 		Play::CreateGameObject(TYPE_GEM, gState.asteroid.LANDED_ASTEROID, gState.gem.GEM_RADIUS, "gem");
 
@@ -421,8 +423,6 @@ void SetVelocitytoObjectDirection(GameObject& obj, float speed)
 	obj.velocity.y = -cos(obj.rotation) * speed;
 }
 
-Play::SetGameObjectDirection();
-
 // Takes a game object, width and height and loops the object around the screen
 void WrapObject(GameObject& obj, int ObjectWidth, int ObjectHeight)
 {
@@ -491,7 +491,19 @@ void Draw()
 			gState.position.CentreBottomQuarter,
 			Play::CENTRE);
 	}
-
+	if (gState.cheat_1 == true)
+	{
+		Play::DrawFontText("font64px",
+			"cheat 1: LASERS ON",
+			gState.position.TopRight,
+			Play::CENTRE);
+	}if (gState.cheat_2 == true)
+	{
+		Play::DrawFontText("font64px",
+			"cheat 2: YEE HAW",
+			gState.position.TopRight2,
+			Play::CENTRE);
+	}
 
 	Play::PresentDrawingBuffer();
 }
