@@ -479,7 +479,7 @@ void Pause()
 
 	if (Play::KeyPressed(VK_DOWN) && gState.pState == STATE_PAUSED && gState.cheat_2 == false)
 	{
-		Play::PlayAudio("cheat");
+		Play::PlayAudio("bigiron");
 		gState.cheat_2 = true;
 	}
 	else if (Play::KeyPressed(VK_DOWN) && gState.pState == STATE_PAUSED && gState.cheat_2 == true)
