@@ -119,6 +119,7 @@ struct GameState // Collection of persisting data to avoid global variables
 	bool cheat_1 = false;
 	bool cheat_2 = false;
 	int level{ 0 };
+	int gemsCollected{ 0 };
 	AsteroidPieces_info piece;
 	AgentStates agentState = STATE_FLYING;
 	Agent8 agent8;

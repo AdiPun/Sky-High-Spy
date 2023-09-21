@@ -53,18 +53,18 @@ bool MainGameUpdate(float elapsedTime)
 		if (Play::KeyPressed(VK_SPACE))
 		{
 			gState.pState = STATE_RESET;
+			gState.cheat_1 = false;
+			gState.cheat_2 = false;
 		}
 		break;
 	case STATE_RESET:
-		gState.cheat_1 = false;
-		gState.cheat_2 = false;
-		gState.score = 0;
+		gState.gemsCollected = 0;
 		Play::DestroyGameObjectsByType(TYPE_METEOR);
 		Play::DestroyGameObjectsByType(TYPE_ASTEROID);
 		Play::DestroyGameObjectsByType(TYPE_GEM);
 		Play::DestroyGameObjectsByType(TYPE_LASER);
 		SpawnObject(TYPE_METEOR, "meteor", gState.meteor.MAX_METEORS + (gState.level), 40);
-		SpawnObject(TYPE_ASTEROID, "asteroid", gState.asteroid.MAX_ASTEROIDS + gState.level, 60);
+		SpawnObject(TYPE_ASTEROID, "asteroid", gState.asteroid.MAX_ASTEROIDS + (gState.level), 60);
 		gState.pState = STATE_PLAY;
 		break;
 	case STATE_PLAY:
@@ -83,11 +83,20 @@ bool MainGameUpdate(float elapsedTime)
 			Play::PlayAudio("pause");
 			Play::StopAudioLoop("music");
 		}
+
+		if (gState.gemsCollected == gState.asteroid.MAX_ASTEROIDS + (gState.level))
+		{
+			gState.level += 1;
+			gState.pState = STATE_RESET;
+		}
+
 		break;
 	case STATE_PAUSED:
 		Pause();
 		break;
 	case STATE_GAMEOVER:
+		gState.score = 0;
+		gState.level = 0;
 		UpdateAgent8();
 		UpdateAsteroids();
 		UpdateMeteors();
@@ -379,6 +388,7 @@ void UpdateGem()
 				CreateRings(obj_gem.pos);
 				Play::PlayAudio("reward");
 				gState.score += gState.gem.GEM_SCORE;
+				gState.gemsCollected += 1;
 				Play::DestroyGameObject(gem_id);
 			}
 
