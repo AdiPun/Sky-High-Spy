@@ -548,7 +548,7 @@ void Draw()
 	if (gState.pState == STATE_GAMEOVER)
 	{
 		Play::DrawFontText("font151px",
-			"GAME OVER",
+			"GAME OVER!",
 			gState.position.CentrePosition,
 			Play::CENTRE);
 		Play::DrawFontText("font151px",
