@@ -8,6 +8,7 @@ void UpdateAgent8();
 void UpdateAgent8Dead();
 void UpdateAsteroids();
 void UpdateLandedAsteroid();
+void DestroyAsteroid();
 void HandleFlyingControls();
 void HandleLandedControls();
 void UpdateLaser();
@@ -169,6 +170,30 @@ void UpdateLandedAsteroid()
 	Play::UpdateGameObject(obj_landed);
 }
 
+void DestroyAsteroid()
+{
+	
+	GameObject& obj_agent8 = Play::GetGameObjectByType(TYPE_AGENT8);
+	GameObject& obj_landed_asteroid = Play::GetGameObjectByType(TYPE_LANDED_ON);
+	gState.asteroid.LANDED_ASTEROID = obj_landed_asteroid.pos;
+
+
+
+	Play::PlayAudio("explode"); // Create Function what happens when asteroid is destroyed
+
+
+	obj_agent8.pos.x += 10 * gState.agent8.AGENT8_SPEED * sin(obj_agent8.rotation); // This is to make sure that agent8 doesn't look like he's jumping from the centre of the asteroid. This adds the velocity onto the pos. This works because velocity has direction!!!!
+	obj_agent8.pos.y += 10 * gState.agent8.AGENT8_SPEED * -cos(obj_agent8.rotation);
+
+	CreateAsteroidPieces();
+
+
+	Play::CreateGameObject(TYPE_GEM, gState.asteroid.LANDED_ASTEROID, gState.gem.GEM_RADIUS, "gem");
+
+
+	Play::DestroyGameObjectsByType(TYPE_LANDED_ON);
+}
+
 void HandleFlyingControls()
 {
 	GameObject& obj_agent8 = Play::GetGameObjectByType(TYPE_AGENT8);
@@ -215,24 +240,7 @@ void HandleLandedControls()
 		gState.agentState = STATE_FLYING;
 		Play::SetSprite(obj_agent8, "agent8_fly", 1.0f);
 		
-		GameObject& obj_landed_asteroid = Play::GetGameObjectByType(TYPE_LANDED_ON);
-		gState.asteroid.LANDED_ASTEROID = obj_landed_asteroid.pos;
-
-
-
-		Play::PlayAudio("explode"); // Create Function what happens when asteroid is destroyed
-
-
-		obj_agent8.pos.x += 10 * gState.agent8.AGENT8_SPEED * sin(obj_agent8.rotation); // This is to make sure that agent8 doesn't look like he's jumping from the centre of the asteroid. This adds the velocity onto the pos. This works because velocity has direction!!!!
-		obj_agent8.pos.y += 10 * gState.agent8.AGENT8_SPEED * -cos(obj_agent8.rotation);
-
-		CreateAsteroidPieces();
-
-
-		Play::CreateGameObject(TYPE_GEM, gState.asteroid.LANDED_ASTEROID, gState.gem.GEM_RADIUS, "gem");
-
-
-		Play::DestroyGameObjectsByType(TYPE_LANDED_ON);
+		DestroyAsteroid();
 	}
 	if (gState.cheat_1 == true)
 	{
