@@ -59,6 +59,7 @@ bool MainGameUpdate(float elapsedTime)
 		break;
 	case STATE_RESET:
 		gState.gemsCollected = 0;
+		gState.levelTimer = 0;
 		Play::DestroyGameObjectsByType(TYPE_METEOR);
 		Play::DestroyGameObjectsByType(TYPE_ASTEROID);
 		Play::DestroyGameObjectsByType(TYPE_GEM);
@@ -68,6 +69,7 @@ bool MainGameUpdate(float elapsedTime)
 		gState.pState = STATE_PLAY;
 		break;
 	case STATE_PLAY:
+		gState.levelTimer++;
 		UpdateAgent8();
 		UpdateAsteroids();
 		UpdateLandedAsteroid();
@@ -467,6 +469,7 @@ void Pause()
 		Play::PlayAudio("pause");
 		Play::StartAudioLoop("music");
 	}
+
 	if (Play::KeyPressed(VK_CONTROL) && gState.pState == STATE_PAUSED && gState.cheat_1 == false)
 	{
 		Play::PlayAudio("cheat");
@@ -478,7 +481,7 @@ void Pause()
 		gState.cheat_1 = false;
 	}
 
-	if (Play::KeyPressed(VK_DOWN) && gState.pState == STATE_PAUSED && gState.cheat_1 == false)
+	if (Play::KeyPressed(VK_DOWN) && gState.pState == STATE_PAUSED && gState.cheat_2 == false)
 	{
 		Play::PlayAudio("cheat");
 		gState.cheat_2 = true;
@@ -552,6 +555,10 @@ void Draw()
 	if (gState.pState == STATE_PLAY)
 	{
 		Play::DrawFontText("font151px", "SCORE: " + std::to_string(gState.score), { DISPLAY_WIDTH / 2,DISPLAY_HEIGHT / 6 }, Play::CENTRE);
+		if (gState.levelTimer < 180)
+		{
+			Play::DrawFontText("font151px", "LEVEL " + std::to_string(gState.level+1), gState.position.CentreBottomQuarter, Play::CENTRE);
+		}
 	}
 
 	if (gState.pState == STATE_PAUSED)
