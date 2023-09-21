@@ -50,8 +50,8 @@ bool MainGameUpdate(float elapsedTime)
 	switch (gState.pState)
 	{
 	case STATE_RESET:
-		gState.cheat_1 = true;
-		gState.cheat_2 = true;
+		gState.cheat_1 = false;
+		gState.cheat_2 = false;
 		gState.score = 400;
 		Play::DestroyGameObjectsByType(TYPE_METEOR);
 		Play::DestroyGameObjectsByType(TYPE_ASTEROID);
@@ -442,13 +442,32 @@ void UpdateClouds()
 
 void Pause()
 {
-
-
 	if (Play::KeyPressed(VK_DELETE) && gState.pState == STATE_PAUSED)
 	{
 		gState.pState = STATE_PLAY;
 		Play::PlayAudio("pause");
 		Play::StartAudioLoop("music");
+	}
+	if (Play::KeyPressed(VK_CONTROL) && gState.pState == STATE_PAUSED && gState.cheat_1 == false)
+	{
+		Play::PlayAudio("cheat");
+		gState.cheat_1 = true;
+	}
+	else if (Play::KeyPressed(VK_CONTROL) && gState.pState == STATE_PAUSED && gState.cheat_1 == true)
+	{
+		Play::PlayAudio("cheat");
+		gState.cheat_1 = false;
+	}
+
+	if (Play::KeyPressed(VK_MENU) && gState.pState == STATE_PAUSED && gState.cheat_1 == false)
+	{
+		Play::PlayAudio("cheat");
+		gState.cheat_2 = true;
+	}
+	else if (Play::KeyPressed(VK_MENU) && gState.pState == STATE_PAUSED && gState.cheat_2 == true)
+	{
+		Play::PlayAudio("cheat");
+		gState.cheat_2 = false;
 	}
 }
 
@@ -509,9 +528,8 @@ void Draw()
 	DrawAllGameObjectsOfType(TYPE_RING);
 	DrawAllGameObjectsOfType(TYPE_CLOUD);
 	DrawAllGameObjectsOfType(TYPE_LASER);
-
-
 	Play::DrawObjectRotated(Play::GetGameObjectByType(TYPE_AGENT8));
+
 	Play::DrawFontText("font151px", "SCORE: " + std::to_string(gState.score), { DISPLAY_WIDTH / 2,DISPLAY_HEIGHT / 6 }, Play::CENTRE);
 
 	if (gState.pState == STATE_PAUSED)
