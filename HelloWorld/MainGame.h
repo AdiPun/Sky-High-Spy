@@ -101,8 +101,6 @@ struct TextPositions
 	Point2f CentreBottomQuarter{ DISPLAY_WIDTH / 2, DISPLAY_HEIGHT / 4 * 3 };
 	Point2f TopRight{ DISPLAY_WIDTH / 10 * 8, DISPLAY_HEIGHT / 10 * 1 };
 	Point2f TopRight2{ DISPLAY_WIDTH / 10 * 8, DISPLAY_HEIGHT / 10 * 2 };
-
-
 };
 
 struct LASER
@@ -118,6 +116,7 @@ struct GameState // Collection of persisting data to avoid global variables
 	int score{ 0 };
 	bool cheat_1 = false;
 	bool cheat_2 = false;
+	int level{ 0 };
 	AsteroidPieces_info piece;
 	AgentStates agentState = STATE_FLYING;
 	Agent8 agent8;

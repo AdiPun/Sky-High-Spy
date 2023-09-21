@@ -52,13 +52,13 @@ bool MainGameUpdate(float elapsedTime)
 	case STATE_RESET:
 		gState.cheat_1 = false;
 		gState.cheat_2 = false;
-		gState.score = 400;
+		gState.score = 0;
 		Play::DestroyGameObjectsByType(TYPE_METEOR);
 		Play::DestroyGameObjectsByType(TYPE_ASTEROID);
 		Play::DestroyGameObjectsByType(TYPE_GEM);
 		Play::DestroyGameObjectsByType(TYPE_LASER);
-		SpawnObject(TYPE_METEOR, "meteor", gState.meteor.MAX_METEORS, 40);
-		SpawnObject(TYPE_ASTEROID, "asteroid", gState.asteroid.MAX_ASTEROIDS, 60);
+		SpawnObject(TYPE_METEOR, "meteor", gState.meteor.MAX_METEORS + (gState.level), 40);
+		SpawnObject(TYPE_ASTEROID, "asteroid", gState.asteroid.MAX_ASTEROIDS + gState.level, 60);
 		gState.pState = STATE_PLAY;
 		break;
 	case STATE_PLAY:
@@ -459,12 +459,12 @@ void Pause()
 		gState.cheat_1 = false;
 	}
 
-	if (Play::KeyPressed(VK_MENU) && gState.pState == STATE_PAUSED && gState.cheat_1 == false)
+	if (Play::KeyPressed(VK_DOWN) && gState.pState == STATE_PAUSED && gState.cheat_1 == false)
 	{
 		Play::PlayAudio("cheat");
 		gState.cheat_2 = true;
 	}
-	else if (Play::KeyPressed(VK_MENU) && gState.pState == STATE_PAUSED && gState.cheat_2 == true)
+	else if (Play::KeyPressed(VK_DOWN) && gState.pState == STATE_PAUSED && gState.cheat_2 == true)
 	{
 		Play::PlayAudio("cheat");
 		gState.cheat_2 = false;
@@ -530,7 +530,10 @@ void Draw()
 	DrawAllGameObjectsOfType(TYPE_LASER);
 	Play::DrawObjectRotated(Play::GetGameObjectByType(TYPE_AGENT8));
 
-	Play::DrawFontText("font151px", "SCORE: " + std::to_string(gState.score), { DISPLAY_WIDTH / 2,DISPLAY_HEIGHT / 6 }, Play::CENTRE);
+	if (gState.pState == STATE_PAUSED)
+	{
+		Play::DrawFontText("font151px", "SCORE: " + std::to_string(gState.score), { DISPLAY_WIDTH / 2,DISPLAY_HEIGHT / 6 }, Play::CENTRE);
+	}
 
 	if (gState.pState == STATE_PAUSED)
 	{
@@ -547,12 +550,24 @@ void Draw()
 			gState.position.CentreBottomQuarter,
 			Play::CENTRE);
 	}
+	if (gState.pState == STATE_WELCOME)
+	{
+		Play::DrawFontText("font105px", "Arrow keys to rotate, space to jump, DEL to pause\nDestroy all the asteroids and collect all gems to get to the next level\nAvoid the meteor!", gState.position.CentrePosition, Play::CENTRE);
+		Play::DrawFontText("font151px", "welcome to SkyHighSpy", gState.position.CentreTOP, Play::CENTRE);
+		Play::DrawFontText("font64px",
+			"Press space to play",
+			gState.position.CentreBottomQuarter,
+			Play::CENTRE);
+
+	}
+
 	if (gState.cheat_1 == true)
 	{
 		Play::DrawFontText("font64px",
 			"cheat 1: LASERS ON",
 			gState.position.TopRight,
 			Play::CENTRE);
+
 	}if (gState.cheat_2 == true)
 	{
 		Play::DrawFontText("font64px",
