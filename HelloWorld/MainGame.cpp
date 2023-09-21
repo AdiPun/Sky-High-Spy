@@ -175,16 +175,9 @@ void DestroyAsteroid()
 	
 	GameObject& obj_agent8 = Play::GetGameObjectByType(TYPE_AGENT8);
 	GameObject& obj_landed_asteroid = Play::GetGameObjectByType(TYPE_LANDED_ON);
-	gState.asteroid.LANDED_ASTEROID = obj_landed_asteroid.pos;
-
-
+	
 
 	Play::PlayAudio("explode"); // Create Function what happens when asteroid is destroyed
-
-
-	obj_agent8.pos.x += 10 * gState.agent8.AGENT8_SPEED * sin(obj_agent8.rotation); // This is to make sure that agent8 doesn't look like he's jumping from the centre of the asteroid. This adds the velocity onto the pos. This works because velocity has direction!!!!
-	obj_agent8.pos.y += 10 * gState.agent8.AGENT8_SPEED * -cos(obj_agent8.rotation);
-
 	CreateAsteroidPieces();
 
 
@@ -216,6 +209,7 @@ void HandleFlyingControls()
 void HandleLandedControls()
 {
 	GameObject& obj_agent8 = Play::GetGameObjectByType(TYPE_AGENT8);
+	GameObject& obj_landed_asteroid = Play::GetGameObjectByType(TYPE_LANDED_ON);
 	obj_agent8.pos = Play::GetGameObjectByType(TYPE_LANDED_ON).pos; // Getting the object reference from the stored asteroid ID
 
 	if (Play::KeyDown(VK_LEFT))
@@ -239,7 +233,9 @@ void HandleLandedControls()
 	{
 		gState.agentState = STATE_FLYING;
 		Play::SetSprite(obj_agent8, "agent8_fly", 1.0f);
-		
+		gState.asteroid.LANDED_ASTEROID = obj_landed_asteroid.pos;
+		obj_agent8.pos.x += 10 * gState.agent8.AGENT8_SPEED * sin(obj_agent8.rotation); // This is to make sure that agent8 doesn't look like he's jumping from the centre of the asteroid. This adds the velocity onto the pos. This works because velocity has direction!!!!
+		obj_agent8.pos.y += 10 * gState.agent8.AGENT8_SPEED * -cos(obj_agent8.rotation);
 		DestroyAsteroid();
 	}
 	if (gState.cheat_1 == true)
@@ -269,16 +265,42 @@ void UpdateLaser()
 	for (int id_laser : vLASERS)
 	{
 		GameObject& obj_laser = Play::GetGameObject(id_laser);
-	
-		Play::UpdateGameObject(obj_laser);
+		bool hasCollided = false;
+		bool meteorDead = false;
+		bool asteroidDead = false;
 
-		if (Play::IsColliding(obj_laser, obj_asteroid) && gState.cheat_1 == true)
+		for (int id_asteroid : vAsteroids)
 		{
-			DestroyAsteroid();
-			Play::DestroyGameObject(id_laser);
+			GameObject& obj_asteroid = Play::GetGameObject(id_asteroid);
+			if (Play::IsColliding(obj_laser, obj_asteroid) && gState.cheat_1 == true)
+			{
+				hasCollided = true;
+				Play::PlayAudio("explode"); // Create Function what happens when asteroid is destroyed
+				for (int i = 0; i < gState.piece.MAX_ASTEROID_PIECES; i++)
+				{
+					int piece_id = Play::CreateGameObject(TYPE_PIECES, obj_asteroid.pos, 0, "asteroid_pieces");
+					GameObject& obj_piece = Play::GetGameObject(piece_id);
+					Play::SetGameObjectDirection(obj_piece, gState.piece.ASTEROID_PIECE_SPEED, -i * Play::RadToDeg(120));
+					obj_piece.frame = i;
+				}
+				Play::CreateGameObject(TYPE_GEM, obj_asteroid.pos, gState.gem.GEM_RADIUS, "gem");
+				Play::DestroyGameObject(id_asteroid);
+			}
+		}
+		
+		for (int id_meteor : vMeteors)
+		{
+			GameObject& obj_meteor = Play::GetGameObject(id_meteor);
+			if (Play::IsColliding(obj_laser, obj_meteor) && gState.cheat_1 == true)
+			{
+				hasCollided = true;
+				Play::DestroyGameObject(id_meteor);
+			}
 		}
 
-		if (!Play::IsVisible(obj_laser))
+		Play::UpdateGameObject(obj_laser);
+
+		if (!Play::IsVisible(obj_laser) || hasCollided)
 		{
 			Play::DestroyGameObject(id_laser);
 		}
