@@ -262,16 +262,25 @@ void HandleLandedControls()
 
 void UpdateLaser()
 {
+	std::vector<int> vAsteroids = Play::CollectGameObjectIDsByType(TYPE_ASTEROID);
+	std::vector<int> vMeteors = Play::CollectGameObjectIDsByType(TYPE_METEOR);
 	std::vector<int> vLASERS = Play::CollectGameObjectIDsByType(TYPE_LASER);
-	for (int laser_id : vLASERS)
-	{
-		GameObject& laser_obj = Play::GetGameObject(laser_id);
-	
-		Play::UpdateGameObject(laser_obj);
 
-		if (!Play::IsVisible(laser_obj))
+	for (int id_laser : vLASERS)
+	{
+		GameObject& obj_laser = Play::GetGameObject(id_laser);
+	
+		Play::UpdateGameObject(obj_laser);
+
+		if (Play::IsColliding(obj_laser, obj_asteroid) && gState.cheat_1 == true)
 		{
-			Play::DestroyGameObject(laser_id);
+			DestroyAsteroid();
+			Play::DestroyGameObject(id_laser);
+		}
+
+		if (!Play::IsVisible(obj_laser))
+		{
+			Play::DestroyGameObject(id_laser);
 		}
 	}
 }
