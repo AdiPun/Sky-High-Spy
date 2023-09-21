@@ -536,7 +536,7 @@ void Draw()
 	DrawAllGameObjectsOfType(TYPE_LASER);
 	Play::DrawObjectRotated(Play::GetGameObjectByType(TYPE_AGENT8));
 
-	if (gState.pState == STATE_PAUSED)
+	if (gState.pState == STATE_PLAY)
 	{
 		Play::DrawFontText("font151px", "SCORE: " + std::to_string(gState.score), { DISPLAY_WIDTH / 2,DISPLAY_HEIGHT / 6 }, Play::CENTRE);
 	}
@@ -558,11 +558,16 @@ void Draw()
 	}
 	if (gState.pState == STATE_WELCOME)
 	{
-		Play::DrawFontText("font105px", "Arrow keys to rotate, space to jump, DEL to pause\nDestroy all the asteroids and collect all gems to get to the next level\nAvoid the meteor!", gState.position.CentrePosition, Play::CENTRE);
-		Play::DrawFontText("font151px", "welcome to SkyHighSpy", gState.position.CentreTOP, Play::CENTRE);
+		GameObject& obj_agent8 = Play::GetGameObjectByType(TYPE_AGENT8);
+		obj_agent8.pos = {-10, -10};
+
+		Play::DrawFontText("font105px", "ARROW KEYS = Rotate, SPACE = Jump, DEL = Pause", gState.position.CentrePosition, Play::CENTRE);
+		Play::DrawFontText("font64px", "Destroy all asteroids and collect all gems!", gState.position.CentrePosition2, Play::CENTRE);
+		Play::DrawFontText("font64px", "Avoid the meteors!", gState.position.CentrePosition3, Play::CENTRE);
+		Play::DrawFontText("font151px", "welcome to SkyHighSpy", gState.position.CentreTop, Play::CENTRE);
 		Play::DrawFontText("font64px",
 			"Press space to play",
-			gState.position.CentreBottomQuarter,
+			gState.position.CentreBottomFifth,
 			Play::CENTRE);
 
 	}

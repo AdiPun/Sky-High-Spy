@@ -95,8 +95,11 @@ struct Cloud_info
 struct TextPositions
 {
 	Point2f CentrePosition{ DISPLAY_WIDTH / 2, DISPLAY_HEIGHT / 2 };
-	Point2f CentreTop{ DISPLAY_WIDTH / 2, DISPLAY_HEIGHT / 2 };
+	Point2f CentrePosition2{ DISPLAY_WIDTH / 2, DISPLAY_HEIGHT / 10*6 };
+	Point2f CentrePosition3{ DISPLAY_WIDTH / 2, DISPLAY_HEIGHT / 10*7 };
+	Point2f CentreTop{ DISPLAY_WIDTH / 2, DISPLAY_HEIGHT / 8 };
 	Point2f CentreBottomQuarter{ DISPLAY_WIDTH / 2, DISPLAY_HEIGHT / 4 * 3 };
+	Point2f CentreBottomFifth{ DISPLAY_WIDTH / 2, DISPLAY_HEIGHT / 5 * 4 };
 	Point2f TopRight{ DISPLAY_WIDTH / 10 * 8, DISPLAY_HEIGHT / 10 * 1 };
 	Point2f TopRight2{ DISPLAY_WIDTH / 10 * 8, DISPLAY_HEIGHT / 10 * 2 };
 };
