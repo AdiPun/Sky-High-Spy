@@ -28,7 +28,8 @@ enum AgentStates
 
 enum PlayStates
 {
-	STATE_RESET = 0,
+	STATE_WELCOME = 0,
+	STATE_RESET,
 	STATE_PLAY,
 	STATE_PAUSED,
 	STATE_GAMEOVER,
@@ -70,12 +71,9 @@ struct Gem_info
 };
 
 struct Ring_info
-
 {
 	const int MAX_RINGS = 3;
 };
-
-
 
 struct AsteroidPieces_info
 {
@@ -125,7 +123,7 @@ struct GameState // Collection of persisting data to avoid global variables
 	Gem_info gem;
 	Ring_info ring;
 	Cloud_info cloud;
-	PlayStates pState{ STATE_RESET };
+	PlayStates pState{ STATE_WELCOME };
 	TextPositions position;
 	LASER LASER;
 };
