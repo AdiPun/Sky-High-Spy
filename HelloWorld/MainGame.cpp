@@ -1,8 +1,5 @@
 #include "MainGame.h"
 
-// To Do
-
-
 // Functions MainGame
 void UpdateAgent8();
 void UpdateAgent8Dead();
@@ -108,7 +105,6 @@ bool MainGameUpdate(float elapsedTime)
 		UpdateClouds();
 		break;
 	}
-
 	Draw();
 
 
@@ -470,12 +466,12 @@ void Pause()
 		Play::StartAudioLoop("music");
 	}
 
-	if (Play::KeyPressed(VK_CONTROL) && gState.pState == STATE_PAUSED && gState.cheat_1 == false)
+	if (Play::KeyPressed(VK_UP) && gState.pState == STATE_PAUSED && gState.cheat_1 == false)
 	{
 		Play::PlayAudio("cheat");
 		gState.cheat_1 = true;
 	}
-	else if (Play::KeyPressed(VK_CONTROL) && gState.pState == STATE_PAUSED && gState.cheat_1 == true)
+	else if (Play::KeyPressed(VK_UP) && gState.pState == STATE_PAUSED && gState.cheat_1 == true)
 	{
 		Play::PlayAudio("cheat");
 		gState.cheat_1 = false;
@@ -541,6 +537,11 @@ void SpawnObject(int type, const char* spriteName, int MAX_OBJECTS, int collisio
 
 void Draw()
 {
+	GameObject& obj_agent8 = Play::GetGameObjectByType(TYPE_AGENT8);
+
+	gState.agent8.Agent8LaserPos.x = obj_agent8.oldPos.x + 5 * gState.agent8.AGENT8_SPEED * sin(obj_agent8.rotation);
+	gState.agent8.Agent8LaserPos.y = obj_agent8.oldPos.y + 5 * gState.agent8.AGENT8_SPEED * -cos(obj_agent8.rotation);
+
 	Play::DrawBackground();
 	DrawAllGameObjectsOfType(TYPE_METEOR);
 	DrawAllGameObjectsOfType(TYPE_ASTEROID);
@@ -550,7 +551,7 @@ void Draw()
 	DrawAllGameObjectsOfType(TYPE_RING);
 	DrawAllGameObjectsOfType(TYPE_CLOUD);
 	DrawAllGameObjectsOfType(TYPE_LASER);
-	Play::DrawObjectRotated(Play::GetGameObjectByType(TYPE_AGENT8));
+	Play::DrawObjectRotated(obj_agent8);
 
 	if (gState.pState == STATE_PLAY)
 	{
@@ -595,7 +596,7 @@ void Draw()
 	if (gState.cheat_1 == true)
 	{
 		Play::DrawFontText("font64px",
-			"cheat 1: LASERS ON",
+			"cheat 1: CLICK FOR LASERS",
 			gState.position.TopRight,
 			Play::CENTRE);
 
@@ -605,6 +606,7 @@ void Draw()
 			"cheat 2: YEE HAW",
 			gState.position.TopRight2,
 			Play::CENTRE);
+		Play::DrawSpriteRotated("yeehaw",gState.agent8.Agent8LaserPos,0,obj_agent8.rotation,1);
 	}
 
 	Play::PresentDrawingBuffer();
