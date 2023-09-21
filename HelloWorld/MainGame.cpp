@@ -49,6 +49,12 @@ bool MainGameUpdate(float elapsedTime)
 {
 	switch (gState.pState)
 	{
+	case STATE_WELCOME:
+		if (Play::KeyPressed(VK_SPACE))
+		{
+			gState.pState = STATE_RESET;
+		}
+		break;
 	case STATE_RESET:
 		gState.cheat_1 = false;
 		gState.cheat_2 = false;
