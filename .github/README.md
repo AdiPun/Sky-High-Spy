@@ -20,12 +20,19 @@ This game was incredibly fun to make. Using Sumodigital's header and tutorial ta
 
 Sky High Spy is an Asteroids-style game where you use arrow keys to steer Agent-8, our spy spider, as they jump from asteroid to asteroid using SPACEBAR. Avoid the meteors and collect enough gems to progress to the next level!
 
+ ### Controls
+
+- Left and right arrow keys: Turn Agent-8
+- Spacebar: Jump!
+- DEL: Pause
+~ Secret: Mouse click: Fire lasers
+
 ### Features
 
 - Continuous levels that increase in meteors and asteroids as you progress.
 - Particle effects when Agent-8 flies and blue ripples when they collect gems!
 - PAUSE using DEL.
-- ENABLE CHEATS!! Don't tell anyone but if you press UP while paused you can click to fire lasers while you're landed on an asteroid.
+- ENABLE CHEATS!! Don't tell anyone, but if you press UP while paused you can click to fire lasers while you're landed on an asteroid.
 - CHEAT 2! Press DOWN while paused for YeeHaw mode, make sure to enjoy the music jingle before unpausing!
 
 ![CheatScreenshot](https://github.com/AdiPun/Sky-High-Spy/blob/master/SkyHigh%20Cheatcode%20sc.png)
