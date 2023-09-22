@@ -1,76 +1,35 @@
+# Sky High Spy
 
-![](/.github/images/playbuffer_title.png)
-## A single-header C++ library for making simple 2D games 
-* **PLATFORM**: Windows
-* **LANGUAGE**: C++
-* **ENVIRONMENT**: Visual Studio
+![Screenshot1](https://github.com/AdiPun/Sky-High-Spy/blob/master/SkyHighSC.png)
 
-## Why?
-Learning C++ is often seen as dry and difficult, partly because the examples used in teaching are usually text-based and uninspiring. PlayBuffer was designed to try and limit the demands of learning C++ while increasing the payoff for the learner by allowing them to make simple, 2D games.
+## Hello!
 
-## A Learning Scaffold
-The PlayBuffer is a beginner's game-development framework, and is intended to be used as a temporary "scaffold" to be discarded once the learner has outgrown it. The library code is simple enough that that a learner could reasonably expect to understand how most of it works for themselves before moving on to a more sophisticated framework. It uses the simplest native Windows libraries (no DirectX/OpenGl/Vulcan) and implements sprite rendering in software, making it an interesting platform for studying basic C++ code optimisation too! 
+Welcome to Sky High Spy, an Asteroids-style game I developed using [SumoDigital's Playbuffer](https://github.com/sumo-digital-academy/playbuffer), single-header C++ library for making simple 2D games.
 
-## Legal
-Copyright 2020 Sumo Digital Limited. Spyder™ is a trade mark of Sumo Group plc. 
+### The game and using Playbuffer
 
-The PlayBuffer code is made available under the Creative Commons Attribution-No Derivatives 4.0 International Public License: https://creativecommons.org/licenses/by-nd/4.0/legalcode.
+This game was incredibly fun to make. Using Sumodigital's header and tutorial taught me various essential concepts in game development using C++. Throughout the development process, I learned how to:
 
-The PlayBuffer tutorial assets are derived from the original Spyder™ game by Sumo Digital Ltd (© 2020 Sumo Digital). Permission is granted to use these resources for educational use only.
+- Code in C++
+- Create functions and use enumeration, state machines, arrays and vectors
+- Assign types, velocities, and acceleration to game objects
+- Implement collision detection using axis-aligned bounding boxes
+- Code logically and efficiently
 
-<p align="center"> <img src="/.github/images/machine.png"> </p>
+### Gameplay
 
-![](/.github/images/getting_started_title.png)
+Sky High Spy is an Asteroids-style game where you use arrow keys to steer Agent-8, our spy spider, as they jump from asteroid to asteroid using SPACEBAR. Avoid the meteors and collect enough gems to progress to the next level!
 
-## What will you need?
-- A Windows-based PC (age and performance isn't too critical)
-- A free copy of the "Community Edition" of Visual Studio (click Download)
+### Features
 
-[![](/.github/images/download.png)](https://visualstudio.microsoft.com/vs/)
-[![](/.github/images/video.png)](https://youtu.be/MBYlFTnvMAI)
+- Continuous levels that increase in meteors and asteroids as you progress.
+- Particle effects when Agent-8 flies and blue ripples when they collect gems!
+- PAUSE using DEL.
+- ENABLE CHEATS!! Don't tell anyone but if you press UP while paused you can click to fire lasers while you're landed on an asteroid.
+- CHEAT 2! Press DOWN while paused for YeeHaw mode, make sure to enjoy the music jingle before unpausing!
 
-## C++ Game Development Taster Workshop
-The Sheffield Women in Computer Science (SWiCS) Society helped to organise some of the first workshops using the PlayBuffer and students from those workshops have helped to deliver an online taster session aimed at A-Level students. 
+![CheatScreenshot](https://github.com/AdiPun/Sky-High-Spy/blob/master/SkyHigh%20Cheatcode%20sc.png)
 
-[![](/.github/images/download.png)](https://github.com/sumo-digital-academy/playbuffer/archive/refs/heads/SkyHighSpy.zip)
-[![](/.github/images/video.png)](https://www.youtube.com/watch?v=XDCN9lRVz3A)
-
-## From "Hello World!" to Spy Wire
-
-It's traditional for programming tutorials to begin by displaying "Hello World!" to the screen. This project is a useful starting point for any PlayBuffer application, but also includes a pdf manual which will take you from Hello World to your first complete shoot-'em-up game!
-
-[![](/.github/images/playbuffer_manual.png)](https://github.com/sumo-digital-academy/playbuffer/blob/HelloWorld/PlayBuffer%20Manual.pdf)
-
-[![](/.github/images/download.png)](https://github.com/sumo-digital-academy/playbuffer/archive/refs/heads/HelloWorld.zip)
-[![](/.github/images/manual.png)](https://github.com/sumo-digital-academy/playbuffer/blob/HelloWorld/PlayBuffer%20Manual.pdf)
-
-
-
-![](/.github/images/next_steps_title.png)
-
-## Example Projects
-The other branches on the PlayBuffer repo are all different projects branched from the basic Hello World example. You can select a different branch from the dropdown in the top left corner of the main project page (where it currently says HelloWorld).
-
-<p align="center"> <img src="/.github/images/RocketRotateLoop.gif"> </p>
-
-## Error Reporting
-If you find any problems with the PlayBuffer framework then please report them to academy@sumo-digital.com
-
-![](/.github/images/faq_title.png)
-
-* **Can I make a game using the PlayBuffer and sell/distribute the executable?**
-
-   Yes. Provided that you're not selling or distributing anything containing the tutorial assets or the PlayBuffer source code then what you do with your executables is entirely your business!
- 
- ##
- 
-* **Can I modify the PlayBuffer code and sell/distribute it?** 
-
-   No. This would be prohibited by the licence as a derivative work. Obviously we're not keen on someone else selling something we're giving away for free, but we also don't want dozens of variations of PlayBuffer out there. It would be very easy to expand the PlayBuffer and make it more advanced, but that's not the point of PlayBuffer: we want it to stay simple for newcomers. If you've outgrown it then there are lots of more sophisticated frameworks out there for you to move on to.  
- 
-  ##
-* **Can I modify the PlayBuffer code in my game so long as I don't release the source code?**
-
-   Yes.
-
-<p align="center"> <img src="/.github/images/agent8.png"> </p>
+### Sky High Spy
+"~bzzt~ Space log Agent-8, 960 hrs since deployment. I will continue to survive though I believe the humans have abandoned me and the project. I pity y'all on Earth more however, after all, aren't well all just tiny robot spiders floating through space, destined to collect gems uncovered from asteroids while dodging meteors?" - Agent-8.
+"At least I get YeeHaw mode... and lasers" - Agent-8.
