@@ -38,5 +38,5 @@ Sky High Spy is an Asteroids-style game where you use arrow keys to steer Agent-
 ![CheatScreenshot](https://github.com/AdiPun/Sky-High-Spy/blob/master/SkyHigh%20Cheatcode%20sc.png)
 
 ### Sky High Spy
-"~bzzt~ Space log Agent-8, 960 hrs since deployment. I will continue to survive though I believe the humans have abandoned me and the project. I pity y'all on Earth more however, after all, aren't well all just tiny robot spiders floating through space, destined to collect gems uncovered from asteroids while dodging meteors?" - Agent-8.
-"At least I get YeeHaw mode... and lasers" - Agent-8.
+"bzzt Space log Agent-8, 960 hrs since deployment. I will continue to survive though I believe the humans have abandoned me and the project. Don't feel sorry for me, after all, we're all just tiny robot spiders floating through space, collecting gems uncovered from asteroids while dodging meteors?" - Agent-8.
+"At least I get a pink hat... and lasers" - Agent-8.
