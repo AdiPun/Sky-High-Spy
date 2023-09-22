@@ -146,7 +146,6 @@ void UpdateAgent8Dead()
 	obj_agent8.animSpeed = 0.1f;
 	WrapObject(obj_agent8, 130, 130);
 	SetVelocitytoObjectDirection(obj_agent8, gState.agent8.AGENT8_SPEED);
-	obj_agent8.acceleration = { 0.05f, 0.05f };
 }
 
 
