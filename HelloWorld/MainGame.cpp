@@ -166,7 +166,6 @@ void UpdateAsteroids()
 			gState.agentState = STATE_LANDED;
 			obj_asteroid.type = TYPE_LANDED_ON; // Changing the asteroid's type to type landed to call it again
 			obj_agent8.rotation += Play::DegToRad(180);
-			Play::SetSprite(obj_agent8, "agent8_left", 0);
 		}
 
 		Play::UpdateGameObject(obj_asteroid);
@@ -223,6 +222,7 @@ void HandleLandedControls()
 	GameObject& obj_agent8 = Play::GetGameObjectByType(TYPE_AGENT8);
 	GameObject& obj_landed_asteroid = Play::GetGameObjectByType(TYPE_LANDED_ON);
 	obj_agent8.pos = Play::GetGameObjectByType(TYPE_LANDED_ON).pos; // Getting the object reference from the stored asteroid ID
+	Play::SetSprite(obj_agent8, "agent8_left", 0);
 
 	if (Play::KeyDown(VK_LEFT))
 	{
