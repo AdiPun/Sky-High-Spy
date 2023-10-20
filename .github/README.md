@@ -40,5 +40,7 @@ Sky High Spy is an Asteroids-style game where you use arrow keys to steer Agent-
 ![SkyHighPinkHat](https://github.com/AdiPun/Sky-High-Spy/assets/119054941/59de4c1c-a467-4962-a1b3-b74eb38b73c5)
 
 ### Sky High Spy
-"bzzt Space log Agent-8, 960 hrs since deployment. I will continue to survive though I believe the humans have abandoned me and the project. Don't feel sorry for me, after all, we're all just tiny robot spiders floating through space, collecting gems uncovered from asteroids while dodging meteors?" - Agent-8.
+"bzzt Space log Agent-8, 960 hrs since deployment. I will continue to survive though I believe the humans have abandoned me and the project. Don't feel sorry for me, after all, aren't we all just tiny robot spiders floating through space, collecting gems uncovered from asteroids while dodging meteors?" - Agent-8.
+
+
 "At least I get a pink hat... and lasers" - Agent-8.
